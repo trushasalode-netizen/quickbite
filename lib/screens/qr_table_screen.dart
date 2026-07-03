@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../theme/aesthetics.dart';
 import '../config/app_config.dart';
-=======
-import 'package:qr_flutter/qr_flutter.dart';
-import '../theme/aesthetics.dart';
-import '../models/restaurant.dart';
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
 class QrTableScreen extends StatefulWidget {
   const QrTableScreen({super.key});
@@ -19,7 +13,6 @@ class QrTableScreen extends StatefulWidget {
 
 class _QrTableScreenState extends State<QrTableScreen> {
   int _selectedTable = 1;
-<<<<<<< HEAD
   String? _customBaseUrl;
 
   String get _qrUrl =>
@@ -27,15 +20,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
 
   @override
   Widget build(BuildContext context) {
-=======
-  final int _totalTables = 10;
-
-  @override
-  Widget build(BuildContext context) {
-    // The QR encodes the Web URL for the deployed Vercel app.
-    final qrData = 'https://my-quickbite.vercel.app/?table=$_selectedTable';
-
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     return Scaffold(
       backgroundColor: CafeTheme.textDark,
       appBar: AppBar(
@@ -61,7 +45,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-<<<<<<< HEAD
               // How it works banner
               Container(
                 width: double.infinity,
@@ -139,46 +122,22 @@ class _QrTableScreenState extends State<QrTableScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-=======
-              const Text(
-                'Select a table to view its QR code.',
-                style: TextStyle(color: Colors.white70, fontSize: 13),
-              ),
-              const SizedBox(height: 20),
-
-              // Table selector chips
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
               SizedBox(
                 height: 46,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-<<<<<<< HEAD
                   itemCount: AppConfig.totalTables,
                   itemBuilder: (context, index) {
                     final tableNum = index + 1;
                     final isSelected = tableNum == _selectedTable;
                     return GestureDetector(
                       onTap: () => setState(() => _selectedTable = tableNum),
-=======
-                  itemCount: _totalTables,
-                  itemBuilder: (context, index) {
-                    final tableNum = index + 1;
-                    final isSelected = tableNum == _selectedTable;
-
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedTable = tableNum;
-                        });
-                      },
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 180),
                         margin: const EdgeInsets.only(right: 10),
                         width: 46,
                         height: 46,
                         decoration: BoxDecoration(
-<<<<<<< HEAD
                           color: isSelected
                               ? CafeTheme.primary
                               : Colors.white.withValues(alpha: 0.1),
@@ -186,12 +145,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
                           border: Border.all(
                             color:
                                 isSelected ? CafeTheme.primary : Colors.white24,
-=======
-                          color: isSelected ? CafeTheme.primary : Colors.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: isSelected ? CafeTheme.primary : Colors.white24,
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                             width: isSelected ? 2 : 1,
                           ),
                         ),
@@ -210,11 +163,7 @@ class _QrTableScreenState extends State<QrTableScreen> {
                   },
                 ),
               ),
-<<<<<<< HEAD
               const SizedBox(height: 28),
-=======
-              const SizedBox(height: 32),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
               // QR Code Card
               Expanded(
@@ -226,13 +175,8 @@ class _QrTableScreenState extends State<QrTableScreen> {
                       borderRadius: BorderRadius.circular(28),
                       boxShadow: [
                         BoxShadow(
-<<<<<<< HEAD
                           color: CafeTheme.primary.withValues(alpha: 0.3),
                           blurRadius: 40,
-=======
-                          color: CafeTheme.primary.withOpacity(0.25),
-                          blurRadius: 30,
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                           spreadRadius: 4,
                         ),
                       ],
@@ -240,7 +184,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-<<<<<<< HEAD
                         // Brand header
                         Row(
                           mainAxisSize: MainAxisSize.min,
@@ -251,17 +194,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
                             const Text(
                               'QUICKBITE',
                               style: TextStyle(
-=======
-                        // Restaurant name
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.restaurant, color: CafeTheme.primary, size: 20),
-                            const SizedBox(width: 6),
-                            Text(
-                              'QUICKBITE',
-                              style: const TextStyle(
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                                 fontFamily: 'Georgia',
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
@@ -271,7 +203,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
                             ),
                           ],
                         ),
-<<<<<<< HEAD
                         const SizedBox(height: 4),
                         const Text(
                           'Scan to view menu & order',
@@ -288,20 +219,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
                           data: _qrUrl,
                           version: QrVersions.auto,
                           size: 180,
-=======
-                        const SizedBox(height: 6),
-                        Text(
-                          'Scan to order from',
-                          style: TextStyle(color: Colors.grey[500], fontSize: 12),
-                        ),
-                        const SizedBox(height: 20),
-
-                        // QR Code widget
-                        QrImageView(
-                          data: qrData,
-                          version: QrVersions.auto,
-                          size: 160,
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                           backgroundColor: Colors.white,
                           eyeStyle: const QrEyeStyle(
                             eyeShape: QrEyeShape.square,
@@ -312,20 +229,12 @@ class _QrTableScreenState extends State<QrTableScreen> {
                             color: CafeTheme.textDark,
                           ),
                         ),
-<<<<<<< HEAD
                         const SizedBox(height: 18),
 
                         // Table badge
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 28, vertical: 10),
-=======
-                        const SizedBox(height: 20),
-
-                        // Table number badge
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                           decoration: BoxDecoration(
                             color: CafeTheme.primary,
                             borderRadius: BorderRadius.circular(20),
@@ -342,7 +251,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
                           ),
                         ),
                         const SizedBox(height: 12),
-<<<<<<< HEAD
 
                         // URL shown below QR + copy button
                         GestureDetector(
@@ -371,14 +279,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
                               Icon(Icons.copy,
                                   size: 12, color: Colors.grey[400]),
                             ],
-=======
-                        Text(
-                          qrData,
-                          style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: 10,
-                            fontFamily: 'monospace',
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                           ),
                         ),
                       ],
@@ -386,7 +286,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
                   ),
                 ),
               ),
-<<<<<<< HEAD
 
               const SizedBox(height: 12),
 
@@ -420,9 +319,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
                   ],
                 ),
               ),
-=======
-              const SizedBox(height: 12),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
             ],
           ),
         ),
@@ -430,7 +326,6 @@ class _QrTableScreenState extends State<QrTableScreen> {
     );
   }
 
-<<<<<<< HEAD
   void _showUrlEditDialog(BuildContext context) {
     final controller = TextEditingController(text: AppConfig.baseUrl);
     showDialog(
@@ -515,7 +410,5 @@ class _QrTableScreenState extends State<QrTableScreen> {
       ),
     );
   }
-=======
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
 }

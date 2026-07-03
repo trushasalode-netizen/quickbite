@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:app_links/app_links.dart';
 import 'dart:async';
@@ -7,16 +6,11 @@ import 'dart:async';
 import 'theme/aesthetics.dart';
 import 'models/restaurant.dart';
 import 'screens/role_selection.dart';
-=======
-import 'theme/aesthetics.dart';
-import 'models/restaurant.dart';
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 import 'screens/customer_home.dart';
 import 'screens/customer_menu.dart';
 import 'screens/customer_cart.dart';
 import 'screens/customer_account.dart';
 import 'screens/admin_panel.dart';
-<<<<<<< HEAD
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,22 +20,6 @@ void main() async {
     anonKey: 'sb_publishable_-FQdQ3sjd_tmMg5GLTE-qw_J_RIUCQb',
   );
 
-=======
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'package:app_links/app_links.dart';
-import 'dart:async';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } catch (e) {
-    debugPrint('Firebase not initialized: $e');
-  }
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   runApp(const QuickBiteApp());
 }
 
@@ -61,25 +39,17 @@ class _QuickBiteAppState extends State<QuickBiteApp> {
   void initState() {
     super.initState();
     _initDeepLinks();
-<<<<<<< HEAD
     // Always start Supabase sync so real-time works for both roles
     _restaurantState.initSupabaseSync();
-=======
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   }
 
   Future<void> _initDeepLinks() async {
     _appLinks = AppLinks();
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     // Handle deep links when app is already open
     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
       _handleDeepLink(uri);
     });
-<<<<<<< HEAD
 
     // Handle deep link when app is started from cold state
     try {
@@ -103,41 +73,16 @@ class _QuickBiteAppState extends State<QuickBiteApp> {
       }
     }
 
-=======
-    
-    // Handle deep link when app is started from cold state
-    final initialUri = await _appLinks.getInitialLink();
-    if (initialUri != null) {
-      _handleDeepLink(initialUri);
-    }
-  }
-
-  void _handleDeepLink(Uri uri) {
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     // Android Deep Link: quickbite://table/N
     if (uri.scheme == 'quickbite' && uri.host == 'table') {
       if (uri.pathSegments.isNotEmpty) {
         final tableNum = int.tryParse(uri.pathSegments.first);
         if (tableNum != null) {
           _restaurantState.updateTableNumber(tableNum);
-<<<<<<< HEAD
           // Keep on roleSelection — customer must confirm their table
         }
       }
     }
-=======
-        }
-      }
-    }
-    
-    // Web URL parsing: https://my-quickbite.vercel.app/?table=N
-    if (uri.queryParameters.containsKey('table')) {
-      final tableNum = int.tryParse(uri.queryParameters['table']!);
-      if (tableNum != null) {
-        _restaurantState.updateTableNumber(tableNum);
-      }
-    }
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   }
 
   @override
@@ -160,7 +105,6 @@ class _QuickBiteAppState extends State<QuickBiteApp> {
   }
 }
 
-<<<<<<< HEAD
 // ─── Main Navigation Wrapper ──────────────────────────────────────────────────
 class AppNavigationWrapper extends StatelessWidget {
   const AppNavigationWrapper({super.key});
@@ -199,18 +143,6 @@ class CustomerNavigationWrapper extends StatefulWidget {
 class _CustomerNavigationWrapperState
     extends State<CustomerNavigationWrapper> {
   int _selectedTabIndex = 0;
-=======
-class AppNavigationWrapper extends StatefulWidget {
-  const AppNavigationWrapper({super.key});
-
-  @override
-  State<AppNavigationWrapper> createState() => _AppNavigationWrapperState();
-}
-
-class _AppNavigationWrapperState extends State<AppNavigationWrapper> {
-  int _selectedTabIndex = 0;
-  bool _isAdminView = false;
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
   void _onTabTapped(int index) {
     setState(() {
@@ -220,11 +152,7 @@ class _AppNavigationWrapperState extends State<AppNavigationWrapper> {
 
   void _navigateToMenu() {
     setState(() {
-<<<<<<< HEAD
       _selectedTabIndex = 1;
-=======
-      _selectedTabIndex = 1; // Menu index
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     });
   }
 
@@ -232,46 +160,18 @@ class _AppNavigationWrapperState extends State<AppNavigationWrapper> {
   Widget build(BuildContext context) {
     final restaurantState = InheritedRestaurantState.of(context);
 
-<<<<<<< HEAD
-=======
-    if (_isAdminView) {
-      return AdminPanelScreen(
-        onToggleCustomerView: () {
-          setState(() {
-            _isAdminView = false;
-          });
-        },
-      );
-    }
-
-    // List of screens corresponding to customer navigation tabs
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     final List<Widget> customerScreens = [
       CustomerHomeScreen(onNavigateToMenu: _navigateToMenu),
       const CustomerMenuScreen(),
       const CustomerCartScreen(),
-<<<<<<< HEAD
       const CustomerAccountScreen(),
-=======
-      CustomerAccountScreen(
-        onToggleAdmin: () {
-          setState(() {
-            _isAdminView = true;
-          });
-        },
-      ),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     ];
 
     return ListenableBuilder(
       listenable: restaurantState,
       builder: (context, _) {
-<<<<<<< HEAD
         final cartCount =
             restaurantState.cart.fold(0, (sum, item) => sum + item.quantity);
-=======
-        final cartCount = restaurantState.cart.fold(0, (sum, item) => sum + item.quantity);
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
         return Scaffold(
           body: customerScreens[_selectedTabIndex],
@@ -311,73 +211,8 @@ class _AppNavigationWrapperState extends State<AppNavigationWrapper> {
                   label: 'Menu',
                 ),
                 BottomNavigationBarItem(
-<<<<<<< HEAD
                   icon: _cartIcon(cartCount, false),
                   activeIcon: _cartIcon(cartCount, true),
-=======
-                  icon: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      const Icon(Icons.shopping_bag_outlined),
-                      if (cartCount > 0)
-                        Positioned(
-                          right: -6,
-                          top: -6,
-                          child: Container(
-                            padding: const EdgeInsets.all(4),
-                            decoration: const BoxDecoration(
-                              color: CafeTheme.accentRed,
-                              shape: BoxShape.circle,
-                            ),
-                            constraints: const BoxConstraints(
-                              minWidth: 16,
-                              minHeight: 16,
-                            ),
-                            child: Text(
-                              '$cartCount',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                  activeIcon: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      const Icon(Icons.shopping_bag),
-                      if (cartCount > 0)
-                        Positioned(
-                          right: -6,
-                          top: -6,
-                          child: Container(
-                            padding: const EdgeInsets.all(4),
-                            decoration: const BoxDecoration(
-                              color: CafeTheme.accentRed,
-                              shape: BoxShape.circle,
-                            ),
-                            constraints: const BoxConstraints(
-                              minWidth: 16,
-                              minHeight: 16,
-                            ),
-                            child: Text(
-                              '$cartCount',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                   label: 'Cart',
                 ),
                 const BottomNavigationBarItem(
@@ -392,7 +227,6 @@ class _AppNavigationWrapperState extends State<AppNavigationWrapper> {
       },
     );
   }
-<<<<<<< HEAD
 
   Widget _cartIcon(int count, bool active) {
     return Stack(
@@ -424,6 +258,4 @@ class _AppNavigationWrapperState extends State<AppNavigationWrapper> {
       ],
     );
   }
-=======
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 }

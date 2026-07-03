@@ -14,14 +14,10 @@ class CustomerCartScreen extends StatelessWidget {
       listenable: restaurantState,
       builder: (context, _) {
         final cartItems = restaurantState.cart;
-<<<<<<< HEAD
         final placedOrders =
             restaurantState.getOrdersForTable(restaurantState.currentTableNumber);
         final billRequested =
             restaurantState.isBillRequested(restaurantState.currentTableNumber);
-=======
-        final placedOrders = restaurantState.getOrdersForTable(restaurantState.currentTableNumber);
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
         return Scaffold(
           body: LiveBackground(
@@ -60,12 +56,8 @@ class CustomerCartScreen extends StatelessWidget {
 
                     // Section 3: Billing & Invoice Receipt (BK/KFC Styled receipt block)
                     if (placedOrders.isNotEmpty || cartItems.isNotEmpty)
-<<<<<<< HEAD
                       _buildBillingSection(
                           context, restaurantState, placedOrders, billRequested),
-=======
-                      _buildBillingSection(context, restaurantState, placedOrders),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
                     const SizedBox(height: 40),
                   ],
@@ -307,14 +299,11 @@ class CustomerCartScreen extends StatelessWidget {
                   statusText = "Serving to you in few minutes!";
                   statusIcon = Icons.room_service_outlined;
                   break;
-<<<<<<< HEAD
                 case OrderStatus.served:
                   statusColor = Colors.grey;
                   statusText = "Served";
                   statusIcon = Icons.check_circle_outline;
                   break;
-=======
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
               }
 
               return Container(
@@ -421,10 +410,7 @@ class CustomerCartScreen extends StatelessWidget {
     BuildContext context,
     RestaurantState state,
     List<Order> orders,
-<<<<<<< HEAD
     bool billRequested,
-=======
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   ) {
     final pendingTotal = state.cart.fold(0.0, (sum, cartItem) => sum + cartItem.totalPrice);
     final subtotal = state.getTableOrdersTotal(state.currentTableNumber) + pendingTotal;
@@ -509,30 +495,19 @@ class CustomerCartScreen extends StatelessWidget {
           const SizedBox(height: 24),
 
           // Status & Payment Button
-<<<<<<< HEAD
           if (billRequested)
-=======
-          if (state.isBillPaid)
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-<<<<<<< HEAD
                 color: CafeTheme.primary.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                     color: CafeTheme.primary.withOpacity(0.4), width: 1.5),
-=======
-                color: CafeTheme.accentGreen.withOpacity(0.12),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: CafeTheme.accentGreen, width: 2.0),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
               ),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-<<<<<<< HEAD
                   Icon(Icons.hourglass_top_rounded,
                       color: CafeTheme.primary),
                   SizedBox(width: 8),
@@ -540,14 +515,6 @@ class CustomerCartScreen extends StatelessWidget {
                     'Bill requested — Waiter coming to settle!',
                     style: TextStyle(
                       color: CafeTheme.primary,
-=======
-                  Icon(Icons.check_circle, color: CafeTheme.accentGreen),
-                  SizedBox(width: 8),
-                  Text(
-                    "Paid & Settled. Thank you!",
-                    style: TextStyle(
-                      color: CafeTheme.accentGreen,
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                       fontWeight: FontWeight.w900,
                       fontFamily: 'Georgia',
                     ),
@@ -558,7 +525,6 @@ class CustomerCartScreen extends StatelessWidget {
           else
             SizedBox(
               width: double.infinity,
-<<<<<<< HEAD
               child: ElevatedButton.icon(
                 onPressed: orders.isEmpty
                     ? null
@@ -587,55 +553,6 @@ class CustomerCartScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28),
                   ),
-=======
-              child: OutlinedButton(
-                onPressed: () {
-                  state.markBillAsPaid();
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      backgroundColor: CafeTheme.background,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      title: const Text(
-                        "Payment Successful",
-                        style: TextStyle(
-                          color: CafeTheme.textDark,
-                          fontFamily: 'Georgia',
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      content: const Text(
-                        "Your transaction has been processed. The kitchen team has been notified. Thank you for dining at QuickBite!",
-                        style: TextStyle(color: CafeTheme.textMuted),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            state.resetSession();
-                          },
-                          child: const Text(
-                            "Done",
-                            style: TextStyle(
-                              color: CafeTheme.primary,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.payment, size: 18),
-                    SizedBox(width: 8),
-                    Text("Generate Bill & Pay"),
-                  ],
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                 ),
               ),
             ),

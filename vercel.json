@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "outputDirectory": "build/web",
   "buildCommand": "echo 'Run: flutter build web --release --base-href / before deploying'",
   "installCommand": "echo 'No install needed — deploy pre-built Flutter web output'",
@@ -54,18 +53,6 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
-=======
-  "builds": [
-    {
-      "src": "build/web/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     }
   ]
 }

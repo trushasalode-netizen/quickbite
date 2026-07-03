@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-<<<<<<< HEAD
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 // Conditional import: web alert sounds on browser, stub on mobile/desktop
@@ -15,13 +14,6 @@ enum WeatherMode { sunny, rainy, cold }
 enum OrderStatus { pending, preparing, ready, served }
 
 // ─── MODELS ─────────────────────────────────────────────────────────────────
-=======
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-enum WeatherMode { sunny, rainy, cold }
-enum OrderStatus { pending, preparing, ready }
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
 class MenuItem {
   final String id;
@@ -29,13 +21,8 @@ class MenuItem {
   final String description;
   final double price;
   final String category;
-<<<<<<< HEAD
   final String imageUrl;
   final String imageAsset;
-=======
-  final String imageUrl;   // Primary high-quality Unsplash image
-  final String imageAsset; // Local asset fallback
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
   MenuItem({
     required this.id,
@@ -46,7 +33,6 @@ class MenuItem {
     required this.imageUrl,
     required this.imageAsset,
   });
-<<<<<<< HEAD
 
   factory MenuItem.fromJson(Map<String, dynamic> json) => MenuItem(
         id: json['id'] as String,
@@ -57,8 +43,6 @@ class MenuItem {
         imageUrl: (json['image_url'] ?? '') as String,
         imageAsset: (json['image_asset'] ?? '') as String,
       );
-=======
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 }
 
 class CartItem {
@@ -70,7 +54,6 @@ class CartItem {
 
 class Order {
   final String id;
-<<<<<<< HEAD
   final int tableNumber;
   final List<CartItem> items;
   final DateTime timestamp;
@@ -79,18 +62,10 @@ class Order {
   Order({
     required this.id,
     required this.tableNumber,
-=======
-  final List<CartItem> items;
-  final DateTime timestamp;
-  OrderStatus status;
-  Order({
-    required this.id,
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     required this.items,
     required this.timestamp,
     this.status = OrderStatus.pending,
   });
-<<<<<<< HEAD
 
   double get totalAmount =>
       items.fold(0, (sum, ci) => sum + ci.totalPrice);
@@ -116,36 +91,6 @@ class RestaurantState extends ChangeNotifier {
   }
 
   // ── Weather ───────────────────────────────────────────────────────────────
-=======
-  double get totalAmount => items.fold(0, (sum, cartItem) => sum + cartItem.totalPrice);
-
-  Map<String, dynamic> toJson(int tableNum) => {
-        'id': id,
-        'tableNumber': tableNum,
-        'timestamp': timestamp.toIso8601String(),
-        'status': status.name,
-        'items': items.map((ci) => {
-          'itemId': ci.item.id,
-          'quantity': ci.quantity,
-        }).toList(),
-      };
-
-  factory Order.fromJson(Map<String, dynamic> json, List<MenuItem> fullMenu) {
-    return Order(
-      id: json['id'],
-      timestamp: DateTime.parse(json['timestamp']),
-      status: OrderStatus.values.firstWhere((e) => e.name == json['status'], orElse: () => OrderStatus.pending),
-      items: (json['items'] as List).map((i) {
-        final item = fullMenu.firstWhere((m) => m.id == i['itemId']);
-        return CartItem(item: item, quantity: i['quantity']);
-      }).toList(),
-    );
-  }
-}
-
-class RestaurantState extends ChangeNotifier {
-  // Weather state
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   WeatherMode _currentWeather = WeatherMode.sunny;
   double _currentTemp = 32.0;
   bool _isFetchingWeather = false;
@@ -154,47 +99,16 @@ class RestaurantState extends ChangeNotifier {
   double get currentTemp => _currentTemp;
   bool get isFetchingWeather => _isFetchingWeather;
 
-<<<<<<< HEAD
-=======
-  RestaurantState() {
-    _initFirebaseSync();
-  }
-
-  void _initFirebaseSync() {
-    if (Firebase.apps.isEmpty) return; // Skip if Firebase not configured
-    
-    FirebaseFirestore.instance.collection('orders').snapshots().listen((snapshot) {
-      _placedOrders.clear();
-      for (var doc in snapshot.docs) {
-        final data = doc.data();
-        final tableNum = data['tableNumber'] as int;
-        final order = Order.fromJson(data, menuItems);
-        
-        if (!_placedOrders.containsKey(tableNum)) {
-          _placedOrders[tableNum] = [];
-        }
-        _placedOrders[tableNum]!.add(order);
-      }
-      notifyListeners();
-    });
-  }
-
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   void updateWeather(WeatherMode mode, double temp) {
     _currentWeather = mode;
     _currentTemp = temp;
     notifyListeners();
   }
 
-<<<<<<< HEAD
-=======
-  /// Fetches real temperature from wttr.in (free, no API key needed)
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   Future<void> fetchRealWeather() async {
     _isFetchingWeather = true;
     notifyListeners();
     try {
-<<<<<<< HEAD
       final response = await http
           .get(Uri.parse('https://wttr.in/?format=j1'))
           .timeout(const Duration(seconds: 8));
@@ -211,22 +125,6 @@ class RestaurantState extends ChangeNotifier {
         if (weatherDesc.contains('rain') ||
             weatherDesc.contains('drizzle') ||
             weatherDesc.contains('shower')) {
-=======
-      final response = await http.get(
-        Uri.parse('https://wttr.in/?format=j1'),
-      ).timeout(const Duration(seconds: 8));
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final tempC = double.tryParse(
-          data['current_condition'][0]['temp_C'].toString(),
-        ) ?? 30.0;
-        final weatherDesc = data['current_condition'][0]['weatherDesc'][0]['value']
-            .toString()
-            .toLowerCase();
-
-        WeatherMode mode;
-        if (weatherDesc.contains('rain') || weatherDesc.contains('drizzle') || weatherDesc.contains('shower')) {
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
           mode = WeatherMode.rainy;
         } else if (tempC < 20) {
           mode = WeatherMode.cold;
@@ -237,46 +135,28 @@ class RestaurantState extends ChangeNotifier {
         _currentWeather = mode;
       }
     } catch (_) {
-<<<<<<< HEAD
       // silently fall back to defaults
-=======
-      // silently fall back to defaults if network unavailable
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     } finally {
       _isFetchingWeather = false;
       notifyListeners();
     }
   }
 
-<<<<<<< HEAD
   // ── Table ─────────────────────────────────────────────────────────────────
   int _currentTableNumber = 1;
   int get currentTableNumber => _currentTableNumber;
 
-=======
-  // Active table selection (default is Table 1)
-  int _currentTableNumber = 1;
-  int get currentTableNumber => _currentTableNumber;
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   void updateTableNumber(int number) {
     _currentTableNumber = number;
     notifyListeners();
   }
 
-<<<<<<< HEAD
   // ── Cart ──────────────────────────────────────────────────────────────────
-=======
-  // Current Cart
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   final List<CartItem> _cart = [];
   List<CartItem> get cart => _cart;
 
   void addToCart(MenuItem item) {
-<<<<<<< HEAD
     final index = _cart.indexWhere((ci) => ci.item.id == item.id);
-=======
-    int index = _cart.indexWhere((cartItem) => cartItem.item.id == item.id);
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     if (index >= 0) {
       _cart[index].quantity++;
     } else {
@@ -286,11 +166,7 @@ class RestaurantState extends ChangeNotifier {
   }
 
   void removeFromCart(MenuItem item) {
-<<<<<<< HEAD
     final index = _cart.indexWhere((ci) => ci.item.id == item.id);
-=======
-    int index = _cart.indexWhere((cartItem) => cartItem.item.id == item.id);
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     if (index >= 0) {
       if (_cart[index].quantity > 1) {
         _cart[index].quantity--;
@@ -306,7 +182,6 @@ class RestaurantState extends ChangeNotifier {
     notifyListeners();
   }
 
-<<<<<<< HEAD
   // ── Orders ────────────────────────────────────────────────────────────────
   final Map<int, List<Order>> _placedOrders = {};
   Map<int, List<Order>> get placedOrders => _placedOrders;
@@ -404,28 +279,10 @@ class RestaurantState extends ChangeNotifier {
       (_placedOrders[_currentTableNumber]
               ?.every((o) => o.status == OrderStatus.served) ??
           false);
-=======
-  // Placed Orders by Table Number
-  final Map<int, List<Order>> _placedOrders = {};
-  Map<int, List<Order>> get placedOrders => _placedOrders;
-
-  List<Order> getOrdersForTable(int tableNum) {
-    return _placedOrders[tableNum] ?? [];
-  }
-
-  double getTableOrdersTotal(int tableNum) {
-    return getOrdersForTable(tableNum).fold(0.0, (sum, order) => sum + order.totalAmount);
-  }
-
-  // Combined Active Bill Status
-  bool _isBillPaid = false;
-  bool get isBillPaid => _isBillPaid;
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
   void resetSession() {
     _cart.clear();
     _placedOrders[_currentTableNumber] = [];
-<<<<<<< HEAD
     _waiterRequests[_currentTableNumber] = false;
     _billRequests[_currentTableNumber] = false;
     notifyListeners();
@@ -443,31 +300,11 @@ class RestaurantState extends ChangeNotifier {
       timestamp: DateTime.now(),
     );
 
-=======
-    _isBillPaid = false;
-    notifyListeners();
-  }
-
-  void markBillAsPaid() {
-    _isBillPaid = true;
-    notifyListeners();
-  }
-
-  // Place Order Action
-  void placeOrder() {
-    if (_cart.isEmpty) return;
-    final newOrder = Order(
-      id: 'ORD-${DateTime.now().millisecondsSinceEpoch}',
-      items: List.from(_cart.map((ci) => CartItem(item: ci.item, quantity: ci.quantity))),
-      timestamp: DateTime.now(),
-    );
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     if (!_placedOrders.containsKey(_currentTableNumber)) {
       _placedOrders[_currentTableNumber] = [];
     }
     _placedOrders[_currentTableNumber]!.add(newOrder);
     _cart.clear();
-<<<<<<< HEAD
     notifyListeners();
 
     // Sync to Supabase
@@ -500,53 +337,15 @@ class RestaurantState extends ChangeNotifier {
   // ── Update Order Status (Kitchen action) ──────────────────────────────────
   Future<void> updateOrderStatus(
       int tableNum, String orderId, OrderStatus status) async {
-=======
-    _isBillPaid = false;
-    notifyListeners();
-    
-    // Sync to Firebase if available
-    if (Firebase.apps.isNotEmpty) {
-      FirebaseFirestore.instance
-          .collection('orders')
-          .doc(newOrder.id)
-          .set(newOrder.toJson(_currentTableNumber));
-    }
-  }
-
-  // Admin Action: Update status of all orders of a table
-  void setTableOrdersReady(int tableNum) {
-    if (_placedOrders.containsKey(tableNum)) {
-      for (var order in _placedOrders[tableNum]!) {
-        if (order.status != OrderStatus.ready) {
-          order.status = OrderStatus.ready;
-          if (Firebase.apps.isNotEmpty) {
-            FirebaseFirestore.instance.collection('orders').doc(order.id).update({'status': order.status.name});
-          }
-        }
-      }
-      notifyListeners();
-    }
-  }
-
-  // Admin Action: Update status of individual order
-  void updateOrderStatus(int tableNum, String orderId, OrderStatus status) {
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     if (_placedOrders.containsKey(tableNum)) {
       for (var order in _placedOrders[tableNum]!) {
         if (order.id == orderId) {
           order.status = status;
-<<<<<<< HEAD
-=======
-          if (Firebase.apps.isNotEmpty) {
-            FirebaseFirestore.instance.collection('orders').doc(order.id).update({'status': order.status.name});
-          }
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
           notifyListeners();
           break;
         }
       }
     }
-<<<<<<< HEAD
     try {
       await Supabase.instance.client
           .from('orders')
@@ -737,13 +536,6 @@ class RestaurantState extends ChangeNotifier {
   }
 
   // ── Smart Recommendations ──────────────────────────────────────────────────
-=======
-  }
-
-  // ─── SMART RECOMMENDATION SYSTEM ───────────────────────────────────────────
-
-  /// Returns a time-based greeting
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   String get greetingText {
     final hour = DateTime.now().hour;
     if (hour < 12) return '☀️ Good Morning! Here\'s what we suggest for you';
@@ -751,10 +543,6 @@ class RestaurantState extends ChangeNotifier {
     return '🌙 Good Evening! End the day on a delicious note';
   }
 
-<<<<<<< HEAD
-=======
-  /// Recommendation panel title based on time + weather
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   String get recommendationTitle {
     final hour = DateTime.now().hour;
     if (_currentWeather == WeatherMode.rainy) return 'Rainy Day Comfort Food 🌧️';
@@ -764,10 +552,6 @@ class RestaurantState extends ChangeNotifier {
     return 'Dinner Delights 🍷';
   }
 
-<<<<<<< HEAD
-=======
-  /// Recommendation panel subtitle
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   String get recommendationSubtitle {
     final temp = _currentTemp.toStringAsFixed(0);
     final hour = DateTime.now().hour;
@@ -782,7 +566,6 @@ class RestaurantState extends ChangeNotifier {
     return '${temp}°C • Unwind with our evening signature dishes';
   }
 
-<<<<<<< HEAD
   List<MenuItem> getRecommendations() {
     final hour = DateTime.now().hour;
     if (_currentWeather == WeatherMode.rainy) {
@@ -820,42 +603,6 @@ class RestaurantState extends ChangeNotifier {
   }
 
   // ── Static Menu Items ─────────────────────────────────────────────────────
-=======
-  /// Smart recommendation based on real time + temperature
-  List<MenuItem> getRecommendations() {
-    final hour = DateTime.now().hour;
-
-    // Weather-based overrides
-    if (_currentWeather == WeatherMode.rainy) {
-      // Rainy day: hot food — pizza, hot drinks, burgers
-      return menuItems.where((item) =>
-        ['Pizza', 'Burger', 'Beverages'].contains(item.category)).take(4).toList();
-    }
-
-    if (_currentWeather == WeatherMode.cold) {
-      // Cold: hot fills — pizza, burgers, hot beverages
-      return menuItems.where((item) =>
-        ['Pizza', 'Burger', 'Beverages'].contains(item.category)).take(4).toList();
-    }
-
-    // Time-based recommendations (sunny/default)
-    if (hour < 12) {
-      // Morning: beverages, desserts (light)
-      return menuItems.where((item) =>
-        ['Beverages', 'Desserts', 'Softies'].contains(item.category)).take(4).toList();
-    } else if (hour < 17) {
-      // Afternoon / lunch: burgers, pizza (heavy)
-      return menuItems.where((item) =>
-        ['Burger', 'Pizza'].contains(item.category)).take(4).toList();
-    } else {
-      // Evening: softies, desserts, beverages (after dinner)
-      return menuItems.where((item) =>
-        ['Softies', 'Desserts', 'Beverages'].contains(item.category)).take(4).toList();
-    }
-  }
-
-  // ─── MENU ITEMS ────────────────────────────────────────────────────────────
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
   static final List<MenuItem> menuItems = [
     // PIZZAS
     MenuItem(
@@ -988,11 +735,7 @@ class RestaurantState extends ChangeNotifier {
       imageUrl: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80',
       imageAsset: 'assets/images/beverage.png',
     ),
-<<<<<<< HEAD
     // COMBOS
-=======
-    // COMBO DEALS
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     MenuItem(
       id: 'combo_box',
       name: 'Solo Box Deal',
@@ -1023,11 +766,7 @@ class RestaurantState extends ChangeNotifier {
   ];
 }
 
-<<<<<<< HEAD
 // ─── INHERITED WIDGET ─────────────────────────────────────────────────────────
-=======
-// ─── INHERITED WIDGET for state sharing across the widget tree ───────────────
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 class InheritedRestaurantState extends InheritedNotifier<RestaurantState> {
   const InheritedRestaurantState({
     super.key,

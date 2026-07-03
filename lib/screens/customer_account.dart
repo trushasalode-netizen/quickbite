@@ -4,12 +4,7 @@ import '../theme/aesthetics.dart';
 import '../widgets/live_background.dart';
 
 class CustomerAccountScreen extends StatelessWidget {
-<<<<<<< HEAD
   const CustomerAccountScreen({super.key});
-=======
-  final VoidCallback onToggleAdmin;
-  const CustomerAccountScreen({super.key, required this.onToggleAdmin});
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 
   @override
   Widget build(BuildContext context) {
@@ -45,18 +40,13 @@ class CustomerAccountScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-<<<<<<< HEAD
                     // Table info card (read-only — table set by QR scan)
-=======
-                    // Table selector card
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                     Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: CafeTheme.surface,
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: CafeTheme.softShadow,
-<<<<<<< HEAD
                         border: Border.all(
                             color: CafeTheme.primary.withOpacity(0.15)),
                       ),
@@ -100,61 +90,6 @@ class CustomerAccountScreen extends StatelessWidget {
                                     color: CafeTheme.textMuted, fontSize: 13),
                               ),
                             ],
-=======
-                        border: Border.all(color: CafeTheme.primary.withOpacity(0.15)),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Your Table",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              fontFamily: 'Georgia',
-                              color: CafeTheme.textDark,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          const Text(
-                            "Switch to a different table number:",
-                            style: TextStyle(color: CafeTheme.textMuted, fontSize: 13),
-                          ),
-                          const SizedBox(height: 12),
-                          Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            children: List.generate(10, (index) {
-                              final tableNum = index + 1;
-                              final isSelected = tableNum == restaurantState.currentTableNumber;
-                              return GestureDetector(
-                                onTap: () => restaurantState.updateTableNumber(tableNum),
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 180),
-                                  width: 48,
-                                  height: 48,
-                                  decoration: BoxDecoration(
-                                    color: isSelected ? CafeTheme.primary : CafeTheme.background,
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                      color: isSelected ? CafeTheme.primary : CafeTheme.primary.withOpacity(0.3),
-                                      width: isSelected ? 2 : 1,
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '$tableNum',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: isSelected ? Colors.black : CafeTheme.textDark,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                           ),
                         ],
                       ),
@@ -169,12 +104,8 @@ class CustomerAccountScreen extends StatelessWidget {
                         color: CafeTheme.surface,
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: CafeTheme.softShadow,
-<<<<<<< HEAD
                         border: Border.all(
                             color: CafeTheme.primary.withOpacity(0.15)),
-=======
-                        border: Border.all(color: CafeTheme.primary.withOpacity(0.15)),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,7 +121,6 @@ class CustomerAccountScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           _buildSummaryRow(
-<<<<<<< HEAD
                             icon: Icons.receipt_long,
                             label: "Orders Placed",
                             value:
@@ -231,31 +161,6 @@ class CustomerAccountScreen extends StatelessWidget {
                                     restaurantState.currentTableNumber)
                                 ? CafeTheme.accentGreen
                                 : CafeTheme.textMuted,
-=======
-                            context,
-                            icon: Icons.receipt_long,
-                            label: "Orders Placed",
-                            value: "${restaurantState.getOrdersForTable(restaurantState.currentTableNumber).length}",
-                          ),
-                          _buildSummaryRow(
-                            context,
-                            icon: Icons.shopping_bag_outlined,
-                            label: "Items in Cart",
-                            value: "${restaurantState.cart.fold(0, (sum, item) => sum + item.quantity)}",
-                          ),
-                          _buildSummaryRow(
-                            context,
-                            icon: Icons.currency_rupee,
-                            label: "Total Spent",
-                            value: "₹${restaurantState.getTableOrdersTotal(restaurantState.currentTableNumber).toStringAsFixed(0)}",
-                          ),
-                          _buildSummaryRow(
-                            context,
-                            icon: Icons.check_circle_outline,
-                            label: "Bill Status",
-                            value: restaurantState.isBillPaid ? "Paid ✓" : "Unpaid",
-                            valueColor: restaurantState.isBillPaid ? CafeTheme.accentGreen : CafeTheme.accentRed,
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                           ),
                         ],
                       ),
@@ -263,23 +168,15 @@ class CustomerAccountScreen extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
-<<<<<<< HEAD
                     // About QuickBite
-=======
-                    // App Info card
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                     Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: CafeTheme.surface,
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: CafeTheme.softShadow,
-<<<<<<< HEAD
                         border: Border.all(
                             color: CafeTheme.primary.withOpacity(0.15)),
-=======
-                        border: Border.all(color: CafeTheme.primary.withOpacity(0.15)),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,19 +193,14 @@ class CustomerAccountScreen extends StatelessWidget {
                           const SizedBox(height: 12),
                           const Text(
                             "QuickBite is a smart QR-based table ordering system. Scan your table QR, browse the menu, and place orders directly from your phone. The kitchen gets notified instantly.",
-<<<<<<< HEAD
                             style: TextStyle(
                                 color: CafeTheme.textMuted,
                                 fontSize: 13,
                                 height: 1.5),
-=======
-                            style: TextStyle(color: CafeTheme.textMuted, fontSize: 13, height: 1.5),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                           ),
                           const SizedBox(height: 12),
                           Row(
                             children: [
-<<<<<<< HEAD
                               const Icon(Icons.info_outline,
                                   color: CafeTheme.primary, size: 16),
                               const SizedBox(width: 6),
@@ -316,13 +208,6 @@ class CustomerAccountScreen extends StatelessWidget {
                                 "v2.0.0 • Supabase Real-Time • QR Ordering",
                                 style: TextStyle(
                                     color: Colors.grey[500], fontSize: 11),
-=======
-                              const Icon(Icons.info_outline, color: CafeTheme.primary, size: 16),
-                              const SizedBox(width: 6),
-                              Text(
-                                "v1.0.0 • Weather-Powered Recommendations",
-                                style: TextStyle(color: Colors.grey[500], fontSize: 11),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                               ),
                             ],
                           ),
@@ -332,7 +217,6 @@ class CustomerAccountScreen extends StatelessWidget {
 
                     const SizedBox(height: 24),
 
-<<<<<<< HEAD
                     // Admin Access — PIN Protected
                     SizedBox(
                       width: double.infinity,
@@ -344,18 +228,6 @@ class CustomerAccountScreen extends StatelessWidget {
                           foregroundColor: CafeTheme.textMuted,
                           side: BorderSide(
                               color: CafeTheme.textMuted.withOpacity(0.3)),
-=======
-                    // Admin Toggle Button
-                    SizedBox(
-                      width: double.infinity,
-                      child: OutlinedButton.icon(
-                        onPressed: onToggleAdmin,
-                        icon: const Icon(Icons.admin_panel_settings_outlined),
-                        label: const Text("Switch to Kitchen/Admin View"),
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: CafeTheme.textDark,
-                          side: BorderSide(color: CafeTheme.primary.withOpacity(0.4)),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
@@ -374,7 +246,6 @@ class CustomerAccountScreen extends StatelessWidget {
     );
   }
 
-<<<<<<< HEAD
   void _showAdminPinDialog(BuildContext context) {
     final pinController = TextEditingController();
     showDialog(
@@ -457,10 +328,6 @@ class CustomerAccountScreen extends StatelessWidget {
   }
 
   Widget _buildSummaryRow({
-=======
-  Widget _buildSummaryRow(
-    BuildContext context, {
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     required IconData icon,
     required String label,
     required String value,

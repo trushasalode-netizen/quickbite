@@ -70,7 +70,6 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
     final quote = quotes[DateTime.now().minute % quotes.length];
 
-<<<<<<< HEAD
     final waiterRequested =
         restaurantState.isWaiterRequested(restaurantState.currentTableNumber);
 
@@ -78,23 +77,13 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
       appBar: AppBar(
         title: const Text('Scan & Have a QuickBite',
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-=======
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Scan & Have a QuickBite', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
         actions: [
-<<<<<<< HEAD
           // Table Badge
           Container(
             margin: const EdgeInsets.symmetric(vertical: 8),
-=======
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
@@ -111,7 +100,6 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
               ),
             ),
           ),
-<<<<<<< HEAD
           // Call Waiter Bell
           Padding(
             padding: const EdgeInsets.only(right: 8.0, left: 4),
@@ -158,8 +146,6 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
               ),
             ),
           ),
-=======
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
         ],
       ),
       body: LiveBackground(

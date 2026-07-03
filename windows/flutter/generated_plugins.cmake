@@ -4,12 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   app_links
-<<<<<<< HEAD
   url_launcher_windows
-=======
-  cloud_firestore
-  firebase_core
->>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
