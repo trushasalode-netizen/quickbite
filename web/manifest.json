@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "name": "QuickBite — Scan & Order",
     "short_name": "QuickBite",
     "description": "Scan the QR at your table and order food instantly.",
@@ -6,6 +7,15 @@
     "display": "standalone",
     "background_color": "#1A1A1A",
     "theme_color": "#D4A853",
+=======
+    "name": "quickbite",
+    "short_name": "quickbite",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "A new Flutter project.",
+>>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

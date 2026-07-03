@@ -4,7 +4,10 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   gtk
+<<<<<<< HEAD
   url_launcher_linux
+=======
+>>>>>>> 0144f9cd9dd5d40fb5e548811681048cff3f63f1
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
